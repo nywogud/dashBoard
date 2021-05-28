@@ -1,0 +1,12 @@
+package com.jhl.dashBoard.model;
+
+import lombok.Data;
+
+@Data
+public class DataModel {
+	
+	private int testNumber;
+	private String method;
+	private Stirng result;
+
+}

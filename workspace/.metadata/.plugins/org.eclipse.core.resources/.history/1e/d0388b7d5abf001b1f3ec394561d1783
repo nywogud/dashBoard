@@ -1,0 +1,8 @@
+package com.jhl.dashBoard.dao;
+
+import com.jhl.dashBoard.model.DataModel;
+
+public interface DataDAO {
+	
+	DataModel.getData();
+}

@@ -1,0 +1,54 @@
+package com.jhl.dashBoard.chart;
+
+import java.util.List;
+
+import com.jhl.dashBoard.model.DataModel;
+
+public class NumAttem {
+	
+//	List<DataModel> resultList;
+//	
+//	
+//	public NumAttem(List<DataModel> resultList) {
+//		this.resultList = resultList;
+//	}
+	public String resultHtml(List<DataModel> resultList) {
+		
+		String html = "<script type=\"text/javascript\">\r\n"
+				+ "      google.charts.load('current', {'packages':['bar']});\r\n"
+				+ "      google.charts.setOnLoadCallback(drawStuff);\r\n"
+				+ "\r\n"
+				+ "      function drawStuff() {\r\n"
+				+ "        var data = new google.visualization.arrayToDataTable([\r\n"
+				+ "          ['인증 수단', '시도횟수'],\r\n";
+		
+		System.out.println("리스트 사이즈 : " + resultList.size());
+				for(int i =0; i<resultList.size(); i++) {
+					
+					
+					html += "['" + resultList.get(i).getMethod() + "', " + resultList.get(i).getNumAttem() + "],\r\n";
+				}
+						
+				html += "        ]);\r\n"
+				+ "        var options = {\r\n"
+				+ "          title: '결제 수단 별 시도 횟수',\r\n"
+				+ "          width: 500,\r\n"
+				+ "          legend: { position: 'none' },\r\n"
+				+ "          chart: { title: '결제 수단 별 시도 횟수' },\r\n"
+				+ "          bars: 'horizontal', // Required for Material Bar Charts.\r\n"
+				+ "          axes: {\r\n"
+				+ "            x: {\r\n"
+				+ "              0: { side: 'top', label: 'Percentage'} // Top x-axis.\r\n"
+				+ "            }\r\n"
+				+ "          },\r\n"
+				+ "          bar: { groupWidth: \"90%\" },\r\n"
+				+ "        };\r\n"
+				+ "\r\n"
+				+ "        var chart = new google.charts.Bar(document.getElementById('numAttem'));\r\n"
+				+ "        chart.draw(data, options);\r\n"
+				+ "      };\r\n"
+				+ "</script>";
+		
+		return html;
+	}
+}

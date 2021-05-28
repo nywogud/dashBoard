@@ -1,0 +1,9 @@
+package com.jhl.dashBoard.service;
+
+import com.jhl.dashBoard.model.DataModel;
+
+public class DataServiceImpl {
+	
+	DataModel getModel();
+
+}

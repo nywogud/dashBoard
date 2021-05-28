@@ -1,0 +1,47 @@
+package com.jhl.dashBoard.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jhl.dashBoard.service.DataService;
+
+
+@CrossOrigin
+@Controller
+public class homeController {
+	
+	@Autowired
+	DataService dataService;
+	
+	@RequestMapping("/")
+	public String home(Model model) throws Exception {
+//		try {
+//			
+//			for(int i=0; i<dataService.getData().size(); i++) {
+//				System.out.println("번호 : " + dataService.getData().get(i).getTestNumber());
+//				System.out.println("인증수단 : " + dataService.getData().get(i).getMethod());
+//				System.out.println("결과 : " + dataService.getData().get(i).getResult());
+//			}
+//			
+//			
+//		}
+//		catch(Exception e) {
+//			System.out.println("오류 : " + e);
+//		}
+		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("home");
+		
+//		model.addAttribute("data", dataService.getData());
+//		model.addAttribute("dataSize", dataService.getData().size());
+		
+		String html = "<h1>test용 태크</h1>";
+		model.addAttribute("html", html);
+		
+		return "home";
+	}
+
+}

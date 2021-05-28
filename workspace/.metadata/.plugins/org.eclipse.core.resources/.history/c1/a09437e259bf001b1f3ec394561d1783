@@ -1,0 +1,5 @@
+package com.jhl.dashBoard.dao;
+
+public interface DataDAO {
+
+}
