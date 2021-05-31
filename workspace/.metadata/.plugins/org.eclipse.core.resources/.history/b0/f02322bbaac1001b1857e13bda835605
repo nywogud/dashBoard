@@ -1,0 +1,11 @@
+package com.jhl.dashBoard.chart;
+
+import com.jhl.dashBoard.model.DataModel;
+
+public class CountNumAttem {
+	
+	public String countNumAttem(List<DataModel>) {
+		return null;
+	}
+
+}

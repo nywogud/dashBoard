@@ -2,11 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jhl.dashBoard.dao.DataDAO">
+	
+	<!-- 데이터베이스의 모든 정보를 조회 -->
 	<select id="getData" resultType="com.jhl.dashBoard.model.DataModel">
 		select * from dash_board.raw_data
 	</select>
 	
+	<!-- 각 결제 수단별 시도횟수를 반환 -->
 	<select id="getNumAttem" resultType="com.jhl.dashBoard.model.DataModel"> 
 		select method, count(*) numAttem FROM DASH_BOARD.raw_data Group by method
 	</select>
+	
+	<!-- 시도횟수 분포를 반환 -->
+	<select id="getConuntNumAttem" resultType="com.jhl.dashBoard.model.DataModel">
+		select numAttem, count(*) countNumAttem FROM (select method, count(*) numAttem FROM DASH_BOARD.raw_data Group by method) Group by numAttem
+	</select>
+	
+	<!-- 각 결제수단의 성공 건수 -->
+	<select id="getSucResultNum" resultType="com.jhl.dashBoard.model.DataModel">
+		select method, count(*) sucResultNum from DASH_BOARD.raw_data where result ='성공' Group by method
+	</select>
+	
+	<!-- 각 결제수단의 실패 건수 -->
+	<select id="getFailResultNum" resultType="com.jhl.dashBoard.model.DataModel">
+		select method, count(*) failResultNum from DASH_BOARD.raw_data where result ='실패' Group by method
+	</select>
+	
+	<!-- 결제수단 별 시도 횟수 넘버링 -->
+	<select id="getNumAttemWithRowNum" resultType="com.jhl.dashBoard.model.DataModel">
+		select rowNum, A.* from (select method, count(*) numAttem FROM DASH_BOARD.raw_data Group by method) A
+	</select>
+	
 </mapper>

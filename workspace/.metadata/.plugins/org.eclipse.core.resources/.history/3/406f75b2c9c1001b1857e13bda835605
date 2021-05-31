@@ -1,0 +1,15 @@
+package com.jhl.dashBoard.chart;
+
+import java.util.List;
+
+import com.jhl.dashBoard.model.DataModel;
+
+public class SucResultNum {
+	
+	public String sucResultNum(List<DataModel> result) {
+		String scriptString = "";
+				
+		return scriptString;
+	}
+
+}

@@ -9,5 +9,13 @@ public interface DataService {
 	public List<DataModel> getData() throws Exception;
 	
 	public List<DataModel> getNumAttem() throws Exception;
+	
+	public List<DataModel> getConuntNumAttem() throws Exception;
+	
+	public List<DataModel> getSucResultNum() throws Exception;
+	
+	public List<DataModel> getNumAttemWithRowNum() throws Exception;
+	
+	public List<DataModel> getFailResultNum() throws Exception;
 
 }

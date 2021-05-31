@@ -10,4 +10,12 @@ public interface DataDAO {
 	
 	public List<DataModel> getNumAttem();
 	
+	public List<DataModel> getConuntNumAttem();
+	
+	public List<DataModel> getSucResultNum();
+	
+	public List<DataModel> getNumAttemWithRowNum();
+	
+	public List<DataModel> getFailResultNum();
+	
 }

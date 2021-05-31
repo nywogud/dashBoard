@@ -25,5 +25,25 @@ public class DataServiceImpl implements DataService{
 	public List<DataModel> getNumAttem() throws Exception{
 		return dataDAO.getNumAttem();
 	}
+	
+	@Override
+	public List<DataModel> getConuntNumAttem() throws Exception{
+		return dataDAO.getConuntNumAttem();
+	}
+	
+	@Override
+	public List<DataModel> getSucResultNum() throws Exception{
+		return dataDAO.getSucResultNum();
+	}
+	
+	@Override
+	public List<DataModel> getNumAttemWithRowNum() throws Exception{
+		return dataDAO.getNumAttemWithRowNum();
+	}
+	
+	@Override
+	public List<DataModel> getFailResultNum() throws Exception{
+		return dataDAO.getFailResultNum();
+	}
 
 }
