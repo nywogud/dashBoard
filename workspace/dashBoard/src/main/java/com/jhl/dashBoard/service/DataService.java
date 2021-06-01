@@ -17,5 +17,11 @@ public interface DataService {
 	public List<DataModel> getNumAttemWithRowNum() throws Exception;
 	
 	public List<DataModel> getFailResultNum() throws Exception;
+	
+	public void deleteDB() throws Exception;
+	
+	public void insertCVS(DataModel dataModel) throws Exception;
+
+	public void doCommit() throws Exception;
 
 }

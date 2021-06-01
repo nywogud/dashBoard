@@ -33,4 +33,20 @@
 		select rowNum, A.* from (select method, count(*) numAttem FROM DASH_BOARD.raw_data Group by method) A
 	</select>
 	
+	<select id="deleteDB">
+		delete from DASH_BOARD.raw_data
+	</select>
+	
+	<select id="insertCVS" parameterType="com.jhl.dashBoard.model.DataModel">
+		insert into DASH_BOARD.raw_data 
+		values(
+		#{testNumber}, 
+		#{method}, 
+		#{result})
+	</select>
+	
+	<select id="doCommit">
+		commit
+	</select>
+
 </mapper>

@@ -1,5 +1,13 @@
 package com.jhl.dashBoard.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jhl.dashBoard.chart.CountNumAttem;
 import com.jhl.dashBoard.chart.FailResultNum;
@@ -22,6 +32,8 @@ import com.jhl.dashBoard.service.DataService;
 @Controller
 public class homeController {
 
+	private static final String FILE_SERVER_PATH = "D:/uploadCVS/";
+	
 	@Autowired
 	DataService dataService;
 
@@ -93,16 +105,77 @@ public class homeController {
 		List<DataModel> failResultNum = dataService.getFailResultNum();
 		
 		//arrayList 확인해야 함.
-//		ArrayList<Object> sucPerFailResult = new ArrayList<>(10);
-//		
-//		for(int i=0; i<sucResultNum.size(); i++) {
-//			sucPerFailResult.add(sucResultNum.get(i).getSucResultNum()/failResultNum.get(i).getFailResultNum());
-//		}
+		ArrayList<Object> sucPerFailResult = new ArrayList<>();
+		
+		for(int i=0; i<sucResultNum.size(); i++) {
+			sucPerFailResult.add(sucResultNum.get(i).getSucResultNum()/failResultNum.get(i).getFailResultNum());
+		}
 		
 		SucPerFail sucPerFail = new SucPerFail();
-		String scriptButton3 = sucPerFail.sucPerFail(sucResultNum, failResultNum);
+		String scriptButton3 = sucPerFail.sucPerFail(sucResultNum, sucPerFailResult);
 		
 		return scriptButton3;
+	}
+	
+	//파일 업로드 맵핑. 디비 델리트와 커밋, 인서트와 커밋을 진행하고서 다시 홈 화면으로 redirect함.
+	@RequestMapping(value="/fileUpload", method= RequestMethod.POST)
+	public String fileUpload(@RequestParam("fileCsv") MultipartFile file, DataModel dataModel) throws Exception{
+		//파일 로컬에 저장 확인
+		file.transferTo(new File(FILE_SERVER_PATH, file.getOriginalFilename()));
+		//파일의 풀 url 저장
+		String fileLoca = FILE_SERVER_PATH + file.getOriginalFilename();
+		
+		//2차원 리스트를 만들어 각 row를 DB에 insert
+		List<List<String>> insertCVS = new ArrayList<List<String>>();
+		BufferedReader br = null;
+		
+		try {
+			br = Files.newBufferedReader(Paths.get(fileLoca));
+			
+			String line ="";
+			
+			while((line = br.readLine()) !=null) {
+				List<String> temp = new ArrayList<String>();
+				String array[]= line.trim().split(",");
+				temp = Arrays.asList(array);
+				insertCVS.add(temp);
+			}
+			
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(br != null) {
+					br.close();
+				}
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//디비 델리트 로직 먼저 실행
+		dataService.deleteDB();
+		
+		dataService.doCommit();
+		
+		//값 읽어옴(트림으로 공백 제거해 사용해야 함.)
+		for(int i =1; i< insertCVS.size(); i++ ) {
+			int testNumber = i+1;
+			if(i !=0) {
+								
+				dataModel.setTestNumber(testNumber);
+				dataModel.setMethod(insertCVS.get(i).get(0).trim());
+				dataModel.setResult(insertCVS.get(i).get(1).trim());
+				
+				dataService.insertCVS(dataModel);
+			}
+		}
+		
+		dataService.doCommit();
+			
+		return "redirect:/";
 	}
 
 }

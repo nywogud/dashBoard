@@ -45,5 +45,22 @@ public class DataServiceImpl implements DataService{
 	public List<DataModel> getFailResultNum() throws Exception{
 		return dataDAO.getFailResultNum();
 	}
+	
+	@Override
+	public void deleteDB() throws Exception{
+		dataDAO.deleteDB();
+	}
+	
+	@Override
+	public void insertCVS(DataModel dataModel) throws Exception{
+		dataDAO.insertCVS(dataModel);
+	}
+	
+	@Override
+	public void doCommit() throws Exception{
+		dataDAO.doCommit();
+	}
+	
+	
 
 }

@@ -14,77 +14,88 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#button1').click(function(){
-			$.ajax({
-				type : "POST",
-				url : "${contextPath}/sucResultNum",
-				success : function(result){
-					$("#convertChart").empty();
-					$("#convertChart").append(result);
-				},
-				
-				error : function(request, status, error) {
-					alert("code = " + request.status + "message = "
-							+ request.responseText + "error = " + error);
-				}
+	$(document).ready(
+			function() {
+				$('#button1').click(
+						function() {
+							$.ajax({
+								type : "POST",
+								url : "${contextPath}/sucResultNum",
+								success : function(result) {
+									$("#convertChart").empty();
+									$("#convertChart").append(result);
+								},
+
+								error : function(request, status, error) {
+									alert("code = " + request.status
+											+ "message = "
+											+ request.responseText + "error = "
+											+ error);
+								}
+							});
+						});
 			});
-		});
-	});
-	
-	
 </script>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#button2').click(function(){
-			$.ajax({
-				type : "POST",
-				url : "${contextPath}/failResultNum",
-				success : function(result){
-					$("#convertChart").empty();
-					$("#convertChart").append(result);
-				},
-				
-				error : function(request, status, error) {
-					alert("code = " + request.status + "message = "
-							+ request.responseText + "error = " + error);
-				}
+	$(document).ready(
+			function() {
+				$('#button2').click(
+						function() {
+							$.ajax({
+								type : "POST",
+								url : "${contextPath}/failResultNum",
+								success : function(result) {
+									$("#convertChart").empty();
+									$("#convertChart").append(result);
+								},
+
+								error : function(request, status, error) {
+									alert("code = " + request.status
+											+ "message = "
+											+ request.responseText + "error = "
+											+ error);
+								}
+							});
+						});
 			});
-		});
-	});
-	
-	
 </script>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#button3').click(function(){
-			$.ajax({
-				type : "POST",
-				url : "${contextPath}/sucPerFail",
-				success : function(result){
-					$("#convertChart").empty();
-					$("#convertChart").append(result);
-				},
-				
-				error : function(request, status, error) {
-					alert("code = " + request.status + "message = "
-							+ request.responseText + "error = " + error);
-				}
+	$(document).ready(
+			function() {
+				$('#button3').click(
+						function() {
+							$.ajax({
+								type : "POST",
+								url : "${contextPath}/sucPerFail",
+								success : function(result) {
+									$("#convertChart").empty();
+									$("#convertChart").append(result);
+								},
+
+								error : function(request, status, error) {
+									alert("code = " + request.status
+											+ "message = "
+											+ request.responseText + "error = "
+											+ error);
+								}
+							});
+						});
 			});
-		});
-	});
-	
-	
 </script>
 
 </head>
 <body>
 	<h2>Hello World</h2>
-	<input type="button" id="button1" value="버튼1" />
-	<input type="button" id="button2" value="버튼2" />
-	<input type="button" id="button3" value="버튼3" />
+	<input style="display: inline-block;" type="button" id="button1" value="버튼1" />
+	<input style="display: inline-block;" type="button" id="button2" value="버튼2" />
+	<input style="display: inline-block;" type="button" id="button3" value="버튼3" />
+
+	<form style="display: inline-block; float:right;" method="POST" action="fileUpload" enctype="multipart/form-data">
+		<input name="fileCsv" type="file" placeholder="CVS파일 업로드" /> 
+		<input type="submit" name="upload" value="CSV파일 올리기"/>
+	</form>
 
 	<div>
 

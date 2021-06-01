@@ -1,12 +1,13 @@
 package com.jhl.dashBoard.chart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jhl.dashBoard.model.DataModel;
 
 public class SucPerFail {
 	
-	public String sucPerFail(List<DataModel> sucResultNum , List<DataModel> failResultNum) {
+	public String sucPerFail(List<DataModel> sucResultNum , ArrayList<Object> sucPerFailResult) {
 		
 		String scriptString = "<script type=\"text/javascript\">\r\n"
 				+ "    google.charts.load(\"current\", {packages:['corechart']});\r\n"
@@ -16,7 +17,7 @@ public class SucPerFail {
 				+ "        [\"인증 수단\", \"실패 대비 성공 건수\", { role: \"style\" } ],\r\n";
 		
 				for (int i=0; i<sucResultNum.size(); i++) {
-					scriptString += "['" + sucResultNum.get(i).getMethod() + "', " +sucResultNum.get(i).getSucResultNum()/failResultNum.get(i).getFailResultNum() + ", \"#4374D9\"],\r\n";
+					scriptString += "['" + sucResultNum.get(i).getMethod() + "', " +sucPerFailResult.get(i)+ ", \"#4374D9\"],\r\n";
 				}
 				
 				

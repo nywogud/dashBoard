@@ -18,4 +18,10 @@ public interface DataDAO {
 	
 	public List<DataModel> getFailResultNum();
 	
+	public void deleteDB();
+	
+	public void insertCVS(DataModel dataModel);
+
+	public void doCommit();
+	
 }
