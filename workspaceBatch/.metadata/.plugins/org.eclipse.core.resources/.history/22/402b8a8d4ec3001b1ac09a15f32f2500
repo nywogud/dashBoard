@@ -1,0 +1,27 @@
+package com.jhl.batchTest.vo;
+
+import lombok.Data;
+
+@Data
+public class MemberVO {
+	
+	private int memberId;
+	private String name;
+	
+	public int getMemberId() {
+		return memberId;
+	}
+	public int setMemberId(int memberId) {
+		this.memberId = memberId;
+		return (Integer) null;
+	}
+	public String getName() {
+		return name;
+	}
+	public String setName(String name) {
+		this.name = name;
+		return null;
+	}
+	
+	
+}

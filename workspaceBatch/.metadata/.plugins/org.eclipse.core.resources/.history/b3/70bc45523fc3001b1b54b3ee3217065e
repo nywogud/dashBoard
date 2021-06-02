@@ -1,0 +1,24 @@
+package com.jhl.batchTest.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.jhl.batchTest.vo.MemberVO;
+
+@Repository
+public class MemberDAOImp implements MemberDAO {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	private static final String NameSpace = "com.jhl.mybatis.mapper.getData";
+	
+	@Override
+	public List<MemberVO> getMembers() throws Exception{
+		return sqlSession.selectList(NameSpace+".getMembers");
+	}
+	
+}

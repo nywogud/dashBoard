@@ -1,0 +1,28 @@
+package com.jhl.batchTest.main;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.jhl.batchTest.service.MemberService;
+import com.jhl.batchTest.vo.MemberVO;
+
+public class ExecuTest {
+	
+	@Autowired
+	static
+	MemberService memberService;
+	
+	public static void main(String[] args) throws Exception {
+		
+		
+		List<MemberVO> memberList =  memberService.getMembers();
+		
+		for(int i=0; i<memberList.size(); i++) {
+			System.out.println(memberList.get(i).getMemberId());
+			System.out.println(memberList.get(i).getName());
+		}
+	}
+
+}

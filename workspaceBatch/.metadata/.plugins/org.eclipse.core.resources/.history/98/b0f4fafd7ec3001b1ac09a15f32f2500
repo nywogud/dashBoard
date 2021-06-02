@@ -1,0 +1,18 @@
+package com.jhl.batchTest.dao;
+
+import java.util.List;
+import com.jhl.batchTest.vo.MemberVO;
+
+public interface MemberDAO {
+	
+	public List<MemberVO> getMembers();
+
+	public void insertData(int memberId, String name);
+	
+	public void insertDataC(int memberId, String name);
+
+	public void commit();
+
+	public void truncateData();
+	
+}

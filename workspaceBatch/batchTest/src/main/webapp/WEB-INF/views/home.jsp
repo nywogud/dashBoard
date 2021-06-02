@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>배치잡 자동 실행</title>
+
+<SCRIPT>
+function startTime(){
+        var time= new Date();
+        hours= time.getHours();
+        mins= time.getMinutes();
+        secs= time.getSeconds();
+        closeTime=hours*3600+mins*60+secs;
+        closeTime+=5;  
+        Timer();
+}
+
+function Timer(){
+        var time= new Date();
+        hours= time.getHours();
+        mins= time.getMinutes();
+        secs= time.getSeconds();
+        curTime=hours*3600+mins*60+secs
+        if (curTime>=closeTime){
+                self.close();}
+        else{
+                window.setTimeout("Timer()",200)}
+}
+</SCRIPT>
+</head>
+<body onLoad="startTime();">
+	배치 잡이 자동 실행 됨.
+	
+</body>
+</html>

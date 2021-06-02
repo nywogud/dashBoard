@@ -1,0 +1,17 @@
+package com.jhl.batchTest.dao;
+
+import java.util.List;
+
+import com.jhl.batchTest.vo.MemberVO;
+
+import lombok.Data;
+
+
+public interface MemberDAO {
+	
+	
+	public static List<MemberVO> getMembers();
+	
+	
+	
+}

@@ -1,0 +1,5 @@
+package com.jhl.batchTest.service;
+
+public interface MemberService {
+
+}

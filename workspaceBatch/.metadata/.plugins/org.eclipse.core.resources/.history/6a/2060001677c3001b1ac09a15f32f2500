@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>배치잡 자동 실행</title>
+
+<SCRIPT Laguage="Javascript">
+function startTime(){
+        var time= new Date();
+        hours= time.getHours();
+        mins= time.getMinutes();
+        secs= time.getSeconds();
+        closeTime=hours*3600+mins*60+secs;
+        closeTime+=5;  // This number is how long the window stays open
+        Timer();
+}
+
+function Timer(){
+        var time= new Date();
+        hours= time.getHours();
+        mins= time.getMinutes();
+        secs= time.getSeconds();
+        curTime=hours*3600+mins*60+secs
+        if (curTime>=closeTime){
+                self.close();}
+        else{
+                window.setTimeout("Timer()",300)} //원하는 시간을 입력하세요. 500은 5초입니다.
+}
+</SCRIPT>
+</head>
+<body>배치 잡이 자동 실행 됨.
+</html>

@@ -1,0 +1,20 @@
+package com.jhl.batchTest.main;
+
+
+import java.util.List;
+
+import com.jhl.batchTest.service.MemberService;
+import com.jhl.batchTest.vo.MemberVO;
+
+public class ExecuTest {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		MemberService memberService;
+		
+		List<MemberVO> memberList =  memberService.getMembers();
+	}
+
+}

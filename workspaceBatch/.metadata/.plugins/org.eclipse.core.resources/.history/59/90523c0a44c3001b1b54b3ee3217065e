@@ -1,0 +1,32 @@
+package com.jhl.batchTest.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jhl.batchTest.service.MemberService;
+import com.jhl.batchTest.vo.MemberVO;
+
+@Controller
+public class HomeController {
+	
+	@Autowired
+	MemberService memberService;
+	
+	@RequestMapping("/")
+	public void home(Model model) throws Exception {
+		
+		List<MemberVO> list =  memberService.getMembers();
+		
+		model.addAttribute("list", list);
+		
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i).getMemberId());
+			System.out.println(list.get(i).getName());
+		}
+		
+	}
+}

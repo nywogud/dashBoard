@@ -1,0 +1,17 @@
+package com.jhl.batchTest.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.jhl.batchTest.dao.MemberDAO;
+import com.jhl.batchTest.vo.MemberVO;
+
+@Service
+public class MemberServiceImpl implements MemberService {
+	
+	public List<MemberVO> getMembers() throws Exception{
+		return MemberDAO.
+	}
+
+}

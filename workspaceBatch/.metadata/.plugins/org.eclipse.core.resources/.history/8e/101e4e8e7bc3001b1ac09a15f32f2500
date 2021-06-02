@@ -1,0 +1,137 @@
+package com.jhl.batchTest.controller;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jhl.batchTest.service.MemberService;
+import com.jhl.batchTest.vo.MemberVO;
+
+@Controller
+@Component
+public class HomeController {
+
+	private static final String csvLoca = "d:/csvFile/loadDataA.csv";
+
+	@Autowired
+	MemberService memberService;
+
+	private static Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@RequestMapping("/")
+	public String home() throws Exception {
+
+		MemberVO memberVO = new MemberVO();
+		// 멤버A의 데이터를 받아옴.
+		List<MemberVO> memberList = memberService.getMembers();
+
+		// JOB1. 멤버A의 데이터를 멤버B에 적재.
+		for (int i = 0; i < memberList.size(); i++) {
+
+			memberVO.setMemberId(memberList.get(i).getMemberId());
+			memberVO.setName(memberList.get(i).getName());
+			int memberId = memberVO.getMemberId();
+			String name = memberVO.getName();
+			memberService.insertData(memberId, name);
+
+			// insert한 내용을 commit
+			memberService.commit();
+		}
+		logger.info("JOB1. 멤버A의 데이터를 멤버B에 적재.");
+
+		// JOB2. 멤버A의 데이터를 CSV파일로 로컬에 저장
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(csvLoca, false));
+
+			for (int i = 0; i < memberList.size(); i++) {
+				bw.write(memberList.get(i).getMemberId() + "," + memberList.get(i).getName());
+				bw.newLine();
+
+			}
+			bw.flush();
+			bw.close();
+
+			logger.info("JOB2. 첫번째 테이블의 데이터를 CSV파일로 로컬에 저장");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// 경로에 해당 d:/csvFile/loadDataA.csv 파일이 있는지 확인
+		File file = new File(csvLoca);
+
+		boolean isExist = file.exists();
+
+		// 읽어올 데이터를 담을 리스트
+		List<List<Object>> insertToDataC = new ArrayList<List<Object>>();
+
+		if (isExist) {
+			logger.info("첫번째 테이블에서 읽어온 데이터 존재함.");
+			
+			// 파일이 있으면 dataC DB를 먼저 TRUNCATE함.
+			memberService.truncateData();
+			logger.info("세번째 테이블을 TRUNCATE");
+			
+			try {
+				// 해당 파일을 읽어옴.
+				BufferedReader br = Files.newBufferedReader(Paths.get(csvLoca));
+
+				String line = "";
+
+				while ((line = br.readLine()) != null) {
+					List<Object> temp = new ArrayList<Object>();
+					String array[] = line.trim().split(",");
+					temp = Arrays.asList(array);
+					insertToDataC.add(temp);
+				}
+
+				br.close();
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			// 나오는 것 확인
+			for (int i = 0; i < insertToDataC.size(); i++) {
+				System.out.println(insertToDataC.get(i).get(0));
+				System.out.println(insertToDataC.get(i).get(1));
+			}
+
+			// JOB3. CSV파일 읽어와 데이터를 세번째 table 적재
+			for (int i = 0; i < insertToDataC.size(); i++) {
+				int id = Integer.parseInt((String) insertToDataC.get(i).get(0));
+				memberVO.setMemberId(id);
+				memberVO.setName((String) insertToDataC.get(i).get(1));
+
+				int memberId = memberVO.getMemberId();
+				String name = memberVO.getName();
+
+				memberService.insertDataC(memberId, name);
+				memberService.commit();
+				
+			}
+			logger.info("JOB3. CSV파일 읽어와 데이터를 세번째 table 적재");
+		} else {
+			// 파일이 없을 때
+		}
+
+		return "home";
+	}
+}

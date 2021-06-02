@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace= "com.jhl.batchTest.dao.MemberDAO">
+	<select id="getMembers" resultType="com.jhl.batchTest.vo.MemberVO">
+		SELECT * FROM BATCH.dataA
+	</select>
+	
+	<select id="insertData" parameterType="com.jhl.batchTest.vo.MemberVO">
+		insert into BATCH.dataB values 
+		(
+		#{memberId},
+		#{name}
+		)
+	</select>
+	
+	<select id="insertDataC" parameterType="com.jhl.batchTest.vo.MemberVO">
+		insert into BATCH.datac values 
+		(
+		#{memberId},
+		#{name}
+		)
+	</select>
+	
+	<select id="commit">
+		commit
+	</select>
+	
+	<select id="truncateData">
+		TRUNCATE table BATCH.datac
+	</select>
+	
+</mapper>

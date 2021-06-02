@@ -1,0 +1,24 @@
+package com.jhl.batchTest.main;
+
+
+import java.util.List;
+
+
+import com.jhl.batchTest.service.MemberService;
+import com.jhl.batchTest.service.MemberServiceImpl;
+import com.jhl.batchTest.vo.MemberVO;
+
+public class ExecuTest {
+	
+	public static void main(String[] args) throws Exception {
+		
+		MemberService memberService = new MemberServiceImpl();
+		
+		List<MemberVO> memberList =  memberService.getMembers();
+		
+		for(int i=0; i<memberList.size(); i++) {
+			System.out.println(memberList.get(i).getMemberId());
+			System.out.println(memberList.get(i).getName());
+		}
+	}
+}

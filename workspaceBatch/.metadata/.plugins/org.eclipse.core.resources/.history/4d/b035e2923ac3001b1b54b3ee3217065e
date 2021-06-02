@@ -1,0 +1,16 @@
+package com.jhl.batchTest.main;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.jhl.batchTest.service.MemberService;
+
+public class ExecuTest {
+	
+	@Autowired
+	MemberService memberService;
+	
+	public static void main(String[] args) {
+		memberService.
+	}
+
+}

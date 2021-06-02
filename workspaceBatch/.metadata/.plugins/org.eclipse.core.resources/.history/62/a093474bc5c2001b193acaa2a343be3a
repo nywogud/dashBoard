@@ -1,0 +1,5 @@
+package com.jhl.batchTest.config;
+
+public class DataAccessConfig {
+
+}

@@ -1,0 +1,20 @@
+package com.jhl.batchTest;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.jhl.batchTest.controller.HomeController;
+
+@SpringBootApplication
+public class BatchTestApplication {
+	
+	@Autowired
+	HomeController homeController;
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(BatchTestApplication.class, args);
+		
+	}
+}
